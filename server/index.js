@@ -54,11 +54,11 @@ app.put('/update', async (req, res) => {
     }
 });
 
-app.delete("/delete/:id", async (req, res) => {
-    const id = req.params.id;
-    await FoodModel.findByIdAndRemove(id).exec();
-    res.send("Deleted");
-})
+app.delete('/delete/:id', async (req, res) => {
+    await FoodModel.findByIdAndRemove({ _id: req.params.id})
+        .then((doc) => console.log(doc))
+        .catch((err) => console.log(err));
+});
 
 app.listen(3001, () => {
     console.log("Server running on port 3001...");
